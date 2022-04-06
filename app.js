@@ -4,7 +4,7 @@ const btnApagarTudo = document.querySelector('.apagar_tudo');
 const input = document.querySelector('.input');
 const space = document.querySelector('.space');
 
-let id = 0;
+let id = 1  ;
 let tarefas = [];
 
 btnApagarTudo.style.display = 'none';
@@ -14,20 +14,33 @@ const criarTarefa = () => {
     console.log(tarefas);
     input.value = '';
     imprimirTarefa(id);
-    id += 1;
+    id++;
     if (tarefas.length > 0) btnApagarTudo.style.display = 'inline-block';
 }
 
-const imprimirTarefa = (id) => {
+const imprimirTarefa = () => {
     space.innerHTML = '';
     for (let i of tarefas) {
-        space.innerHTML += `<li>
-        ${i.tarefa}
-        <button class="btn btn_apagar" id="${id}">Remover</button>
-        </li>`;
-        const apagarTarefa = document.querySelector('.btn_apagar');
-        apagarTarefa.addEventListener('click', () => console.log(i.id));
-        // id+=1;
+        const li = document.createElement('li');
+        li.classList.add('lista');
+        const btnApagar = document.createElement('button');
+        const separador = document.createElement('div');
+        separador.classList.add('separador')
+        separador.appendChild(li);
+        separador.appendChild(btnApagar);
+        space.appendChild(separador);
+        btnApagar.classList.add('btn');
+        btnApagar.classList.add('btn_apagar');
+        btnApagar.classList.add(i.id);
+        li.innerHTML = i.tarefa;
+        btnApagar.innerHTML = 'delete';
+        btnApagar.addEventListener('click', () => {
+            tarefas = tarefas.filter(val => {
+                return val.id !== parseInt(btnApagar.classList[2]);
+            });
+            console.log(tarefas);
+            imprimirTarefa();
+        });
     }
 }
 

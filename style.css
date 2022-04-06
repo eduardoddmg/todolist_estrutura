@@ -56,3 +56,16 @@ li
     text-align: center;
     width: 100%;
 }
+
+.separador
+{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 1vh 0;
+}
+
+.btn_apagar
+{
+    margin: 0 2vh;
+}
